@@ -1,0 +1,55 @@
+.container {
+
+
+	width: 1024px;
+	margin: auto;
+
+}
+
+.container h1 {
+	text-align: center;
+	background: #008000;
+
+}
+
+body {
+	background: #98FB98;
+}
+
+.panel {
+	width: 200px;
+	height: 200px;
+	border: thin solid black;
+	float: left;
+	margin: 30px;
+}
+
+.gamearea {
+
+	overflow: auto;
+	margin: auto;
+	
+	text-align: center;
+	width: 78%;
+
+}
+
+.player {
+
+	height: 50px;
+	text-align: center;
+}
+
+#chatarea {
+
+	
+	width:76%;
+	margin: auto;
+	
+	
+}
+
+#chattext {
+	width: 100%;
+	margin: auto;
+}

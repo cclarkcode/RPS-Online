@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rock, Paper, Scissors Online!</title>
+	<link type="text/css" rel='stylesheet' href='assets/css/style.css'> 
+</head>
+<body>
+
+	<div class='container'>
+		<h1> Rock, Paper, Scissors Online!</h1>
+
+		<div class='player'>
+			<h3> Enter your name:  <input type='text' name='name' id='name'>
+			<button type='submit' id='name-submit'>Join the Game!</button></h3>
+			
+
+		</div>
+
+		<div class='gamearea'>
+			<div class='panel' id='player1'></div>
+			<div class='panel' id="gamebox"></div>
+			<div class='panel' id="player2"></div>
+		</div>
+
+		<div id='chatarea'>
+			<h2>Chat</h2>
+			<textarea id='chattext' rows='10' columns='150' readonly></textarea>
+			<br>
+			<input type='text' name='Message' id='chat-message'>
+			<button type='submit' id='chat-submit'>Submit</button>
+		</div>
+
+	</div>
+<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src='assets/javascript/game.js'></script>
+</body>
+</html>
