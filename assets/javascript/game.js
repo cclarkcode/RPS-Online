@@ -166,6 +166,9 @@ window.addEventListener("unload", function (e) {
     var playernumber = playerstring.substr(playerstring.indexOf("</h3>")-1,1);
 
    database.ref('/rps/player' + playernumber).set("");
+  database.ref('/rps/answers/player1').set("");
+  database.ref('/rps/answers/player2').set("");
+
 
   (e || window.event).returnValue = confirmationMessage; //Gecko + IE
   return confirmationMessage;                            //Webkit, Safari, Chrome
@@ -281,13 +284,15 @@ function resolvegame(answer1, answer2) {
 
     }
 
-    if (answer1 = "scissors") {
+    if (answer1 === "scissors") {
 
       if (answer2 === "rock") {winner=2;}
       else {winner=1;}
     }
 
   }
+
+  console.log(winner + " is the winner.");
   
   result(winner);
   setTimeout(reset,2000);
@@ -306,13 +311,13 @@ function result(playerwin) {
   } 
   else if (playerwin === 1 ) {
     $("#result").text(player1 + " Wins!");
-    addwin(player1);
-    addloss(player2);
+    if (thisplayer() == 1) {addwin(player1);}
+    else {addloss(player2);}
   } 
   else {
      $("#result").text(player2 + " Wins!");
-     addwin(player2);
-    addloss(player1);
+     if(thisplayer() == 2) {addwin(player2);}
+    else {addloss(player1);}
 
   }
 }
