@@ -53,3 +53,13 @@ body {
 	width: 100%;
 	margin: auto;
 }
+
+#chatmessage {
+
+	width: 80%;
+}
+
+.playerchoose {
+
+	height:60%;
+}
