@@ -115,6 +115,13 @@ database.ref('/rps').once("value", function(snapshot) {
     roomfull(player.name)
   }
 
+  database.ref('/rps/chat').push({
+
+    timestamp: moment().format("hh:mm:ss"),
+    message: player.name + " has joined the game.",
+    name: "System"
+  });
+
   welcomebanner(player.name,playernumber);
 
   createbuttons();
@@ -144,6 +151,9 @@ function panelset(playername, playernumber) {
 function panelreset(playername, playernumber) {
 
   $("#player" + playernumber).find(".playername").text("Waiting for Player " + playernumber);
+  $("#player" + playernumber).find(".playerchoose").text("");
+  $("#player" + playernumber).find(".playerstats").text("");
+
 
 
 }
@@ -168,6 +178,13 @@ window.addEventListener("unload", function (e) {
    database.ref('/rps/player' + playernumber).set("");
   database.ref('/rps/answers/player1').set("");
   database.ref('/rps/answers/player2').set("");
+  database.ref('/rps/chat').push({
+
+    timestamp: moment().format("hh:mm:ss"),
+    message: player.name + " has disconnected.",
+    name: "System"
+
+  })
 
 
   (e || window.event).returnValue = confirmationMessage; //Gecko + IE
@@ -354,5 +371,65 @@ function reset() {
   updatestats();
 
 }
+
+
+//Add chat functionality
+
+//Set up listener that will update Chat log 
+
+database.ref('/rps/chat').on('child_added', function(snapshot) {
+  
+  var chat = snapshot.val();
+  console.log(chat);
+
+     $("#chattext").append(chat.name + "(" + chat.timestamp + "):" + chat.message+"&#13;&#10;");
+
+
+})
+
+$("#chat-submit").on("click", function () {
+
+  var message = $("#chat-message").val();
+  $("#chat-message").val("");
+
+  console.log(message);
+  console.log(player.name);
+  console.log(moment().format("hh:mm:ss"));
+
+  if(player.name !== undefined ) {
+
+    database.ref('/rps/chat').push({
+
+    timestamp: moment().format("hh:mm:ss"),
+    message: message,
+    name: player.name
+
+  });
+  }
+  else {
+
+    console.log("Didn't send, no name");
+  }
+
+});
+
+$(document).on("ready", function() {
+
+  //Delete previous chat if page loads without either player 1 or player 2 designated
+  database.ref('/rps').once("value", function(snapshot) {
+
+
+    if (snapshot.val().player1 === "" && snapshot.val().player2 === "") {
+
+      console.log("Erase the chat.");
+      database.ref('/rps/chat').set(null);
+      $("#chattext").text("");
+
+
+    }
+  });
+
+})
+
 
 
